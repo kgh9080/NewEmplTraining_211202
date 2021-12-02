@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nuri.test.store.mapper.TestMapper">
+
+    <sql id="base_where_list">
+        <where>
+            <if test="testId != null">
+                AND TEST_ID = #{testId}
+            </if>
+
+            <if test="text != null">
+                AND TEXT LIKE CONCAT('%', #{text}, '%')
+            </if>
+        </where>
+    </sql>
+
+    <select id="findByCondition" resultType="testJpo" parameterType="testJpo">
+        SELECT
+            TEST_ID,
+            TEXT
+        FROM EDU_TEST
+
+        <include refid="base_where_list" />
+    </select>
+
+</mapper>

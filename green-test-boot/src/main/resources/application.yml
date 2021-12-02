@@ -1,0 +1,41 @@
+server:
+  port: 10031
+#    port: 8080
+
+#따로 한 설정
+#spring:
+#  datasource:
+#    hikari:
+#      driver-class-name: org.mariadb.jdbc.Driver
+#      jdbc-url: jdbc:mariadb://localhost:3306/test
+#      username: root
+#      password: 1234
+#      idleTimeout: 10000
+#      connection-timeout: 10000
+#      validation-timeout: 10000
+#      maxLifetime: 580000
+#      maximumPoolSize: 30
+#      minimumIdle: 10
+
+#원래 설정
+spring:
+  datasource:
+    hikari:
+      driver-class-name: org.mariadb.jdbc.Driver
+      jdbc-url: jdbc:mariadb://172.16.10.191:3306/MASTER
+      username: ${jdbcuser:master}
+      password: ${jdbcpass:green!!20master}
+      idleTimeout: 10000
+      connection-timeout: 10000
+      validation-timeout: 10000
+      maxLifetime: 580000
+      maximumPoolSize: 30
+      minimumIdle: 10
+
+
+mybatis:
+  config-location: classpath:mybatis/mariadb/MapperConfig.xml
+
+
+
+
