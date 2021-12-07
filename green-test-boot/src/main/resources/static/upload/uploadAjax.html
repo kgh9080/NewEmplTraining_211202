@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>파일 업로드</title>
+</head>
+
+<body>
+<h1>Upload with Ajax</h1>
+<div class="uploadDiv">
+    <input type="file" name="uploadFiles" multiple>
+</div>
+<div class="uploadResult">
+    <ul></ul>
+</div>
+
+<button id="uploadBtn">upload</button>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    let check = false;
+
+
+    $(document).ready(function(){
+        let inputFile = $(".uploadDiv input");
+
+        let uploadResult = $(".uploadResult ul");
+
+        function showUploadFile(uploadFiles){
+            let str = "";
+            $(uploadFiles).each(function(i, obj){
+                /*ajax에서 요청을 해서 byte[]를 가져온다. GetMapping("display") */
+                let fileCallPath = encodeURIComponent(obj.uploadPath + "/" + obj.fileName); //uploadPath는 년,월,일 //encodeURIComponent은 문자열이 깨지지 않게 만들어줌(인코딩한번해줌) //자바쪽에서는 받을 때 디코딩
+                str += "<li><div><a href='/upload/download?fileName=" + fileCallPath + "'>" + obj.fileName + "</a>";
+                str += "<span data-file='" + fileCallPath + "' data-type='file'>x</span></div></li>";
+
+            });
+            uploadResult.append(str);
+        }
+
+        $(".uploadResult").on("click", "span", function(){
+            let targetFile = $(this).data("file");
+            let type = $(this).data("type");
+            let li = $(this).parents("li");
+
+            $.ajax({
+                url: "deleteFile",
+                type: "POST",
+                data: {fileName:targetFile, type:type},
+                dataType: "text",
+                success: function(result){
+                    alert(result);
+                    li.remove();
+                }
+            });
+
+        })
+
+
+        /*upload버튼 클릭*/
+        $("#uploadBtn").on("click", function(){
+           let formData = new FormData();
+           let inputFile = $("input[name='uploadFiles']");
+           let files = inputFile[0].files;
+
+           for(let i=0; i<files.length; i++){
+               formData.append("uploadFiles", files[i]);
+           }
+
+           $.ajax({
+               url: "uploadAjaxAction",
+               type: "post",
+               data: formData,
+               contentType: false,
+               processData: false,
+               success: function(fileList){/*fileList는 업로드한 파일의 정보*/
+                   showUploadFile(fileList);
+                   inputFile.val("");
+               }
+           });
+        });
+    })
+</script>
+</html>

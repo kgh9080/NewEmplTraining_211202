@@ -33,6 +33,13 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!--thymeleaf 추가 2021.12.03-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <!--thymeleaf 끝-->
+
     </dependencies>
 
     <build>

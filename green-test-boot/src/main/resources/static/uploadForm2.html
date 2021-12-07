@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>uploadForm2</title>
+</head>
+<body>
+<form action="/upload/uploadFormAction" method="post" enctype="multipart/form-data">
+    <input type="file" name="uploadFiles" multiple>
+    <button>Submit</button>
+</form>
+<h6 th:text="${fileList.get(0).fileName}"></h6>
+<!--<div>
+    <a th:href="@{'/upload/download?fileName=' + ${fileList.get(0).fileName}}" th:text="${fileList.get(0).fileName}"></a>
+</div>-->
+
+
+<div class="uploadResult">
+    <ul th:each="file : ${fileList}">
+        <li>
+            <a th:href="@{'/upload/download?fileName=' + ${file.fileName}}" th:text="${file.fileName}"></a>
+        </li>
+
+    </ul>
+</div>
+
+
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</html>

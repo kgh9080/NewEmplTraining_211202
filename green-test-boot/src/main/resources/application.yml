@@ -1,5 +1,5 @@
 server:
-  port: 10031
+  port: 10000
 #    port: 8080
 
 #따로 한 설정
@@ -32,6 +32,12 @@ spring:
       maximumPoolSize: 30
       minimumIdle: 10
 
+  thymeleaf:
+    prefix: classpath:/static/
+    suffix: .html
+    cache: false
+
+#위 thymeleaf사용
 
 mybatis:
   config-location: classpath:mybatis/mariadb/MapperConfig.xml

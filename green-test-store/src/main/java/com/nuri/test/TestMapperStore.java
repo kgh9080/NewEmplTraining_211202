@@ -24,6 +24,7 @@ public class TestMapperStore implements HelloWorldStore {
         List<HelloWorld> list2 = new ArrayList<>();
         HelloWorld helloWorld1 = new HelloWorld();
 
+
         for (int i = 0; i < list1.size(); i++) {
             helloWorld1.setTestId(list1.get(i).getTestId());
             helloWorld1.setText(list1.get(i).getText());

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>파일 업로드</title>
+</head>
+<body>
+<h1>File Upload and Download with Form</h1>
+<form action="/upload/uploadFormAction" method="post" enctype="multipart/form-data">
+    <input type="file" name="uploadFiles" multiple>
+    <button>Submit</button>
+</form>
+
+<div class="uploadResult">
+    <ul th:each="file : ${fileList}">
+        <li>
+            <a th:href="@{'/upload/download?fileName=' + ${file.fileName}}" th:text="${file.fileName}"></a>
+        </li>
+
+    </ul>
+</div>
+
+</body>
+</html>
